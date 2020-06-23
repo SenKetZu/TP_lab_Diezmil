@@ -9,7 +9,7 @@
 using namespace std;
 using namespace rlutil;
 
-
+//puto haber
 int cantNumeros(int elNumeroAcontar,int vectorTirada[6]) {
     int cantNumeros[6];
     for (int i = 0; i <= 5; i++) {
