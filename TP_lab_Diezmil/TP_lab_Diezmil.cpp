@@ -470,7 +470,7 @@ void pantallaGanadora(int ronda, int jugador, string vectorJugadores[2]) {
 void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string vectorJugadores[2]) {
 
     for (int rondas = 1; rondas <= 10; rondas++) {
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            //https://cutt.ly/eu6Ape5
         bool seguirHaciendoTiradas = true;
         
         for (int jug = 0; jug <= cantJugadores; jug++) {
@@ -496,7 +496,16 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
                 }else{
                     seguirHaciendoTiradas = false;
 
-                    if (puntajeParcial+puntajeTirada +  vectorPuntaje[jug] > 10000) {
+                    if (puntajeTirada==999999) {
+                        
+                        cls();
+                        pantallaGanadora(rondas, jug, vectorJugadores);
+                        jug = 2;
+                        rondas = 11;
+                        
+                        break;
+                    }
+                    else if (puntajeParcial+puntajeTirada +  vectorPuntaje[jug] > 10000) {
                         cls();
                         mostrarTiradaDados(7, vectorTirada);
                         interfaz(jug, rondas, lanzamiento, vectorPuntaje[jug], puntajeParcial, vectorJugadores);
