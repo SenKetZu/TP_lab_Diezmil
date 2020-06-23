@@ -9,7 +9,7 @@
 using namespace std;
 using namespace rlutil;
 
-//el puto tasdasd
+//el puto tasdasd tu hermana
 int cantNumeros(int elNumeroAcontar,int vectorTirada[6]) {
     int cantNumeros[6];
     for (int i = 0; i <= 5; i++) {
