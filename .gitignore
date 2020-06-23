@@ -6,3 +6,8 @@
 *.opendb
 *.db-shm
 *.db
+*.db
+*.db
+*.db-wal
+*.db
+*.db
