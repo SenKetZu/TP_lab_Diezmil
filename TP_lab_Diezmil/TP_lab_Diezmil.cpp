@@ -1,15 +1,15 @@
 
 //	TP DIEZ MIL 
-#include <stdio.h>
+
 #include <iostream>
 #include <time.h>
 #include "rlutil.h"
-#include <conio.h>
+
 
 using namespace std;
 using namespace rlutil;
 
-
+//--------------------funcionales----------------------------
 int cantNumeros(int elNumeroAcontar,int vectorTirada[6]) {
     int cantNumeros[6];
     for (int i = 0; i <= 5; i++) {
@@ -25,11 +25,14 @@ int cantNumeros(int elNumeroAcontar,int vectorTirada[6]) {
     return cantNumeros[elNumeroAcontar-1];
 }
 
+// literalmente, dibuja una linea.
+void linea() {
+    cout << "------------------------------------------------------------------" << endl;
+}
 
 //---------------------------------------------------------------------------------------
 //----------------------------Jugadas posibles-------------------------------------------
 //---------------------------------------------------------------------------------------
-
 
 int JuegoDe1(int vectorTirada[6]) {
     if (cantNumeros(1, vectorTirada) == 1 || cantNumeros(1, vectorTirada) == 2) {
@@ -110,30 +113,14 @@ int sexteto(int vectorTirada[6]) {
     return 0;
 }
 
-//---------------------------------------------------------------------------------------
-//---------------------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------------------
 //-------------------FUNCIONES SOBRE LA TIRADA-------------------------------------------
 //---------------------------------------------------------------------------------------
 
-//devuelte el puntaje de la tirada
-int analizarTiradaCantidad(int vectorTirada[6]) {
-    int  puntajeTirada = 0, valoresTiradas[9] = { JuegoDe1(vectorTirada), JuegoDe5(vectorTirada), trioDe1(vectorTirada), TrioCualquierNumero(vectorTirada), cuatroCincoUnos(vectorTirada), cuatroCincoJuegos(vectorTirada), tresPares(vectorTirada), escaleraCompleta(vectorTirada),sexteto(vectorTirada) };
 
-    
-    for (int i = 0; i < 9; i++) {
-        if (valoresTiradas[i] > puntajeTirada) {
-        puntajeTirada = valoresTiradas[i];
-           
-        }
-    }
-
-    return puntajeTirada;
-}
-
-//devuelve cual fue la tirada ej: escalera, juego extendido, 3 pares.
-void mostrarTiradaTexto(int vectorTirada[6]){
+//devuelve cual fue la tirada ej: escalera, juego extendido, 3 pares y el puntaje.
+int analizarTirada(int vectorTirada[6]){
     int posTirada = 0, puntajeTirada=0, valoresTiradas[9] = { JuegoDe1(vectorTirada), JuegoDe5(vectorTirada), trioDe1(vectorTirada), TrioCualquierNumero(vectorTirada), cuatroCincoUnos(vectorTirada), cuatroCincoJuegos(vectorTirada), tresPares(vectorTirada), escaleraCompleta(vectorTirada),sexteto(vectorTirada) };
 
     
@@ -163,7 +150,7 @@ void mostrarTiradaTexto(int vectorTirada[6]){
     default:
         break;
     }
-
+    return puntajeTirada;
 }
 
 //hace una tirada => le pone valores aleatorios al vector tirada
@@ -338,10 +325,7 @@ bool seguirTirando(int vectorPuntaje[2], int jug, int puntajeParcial) {
     }
 }
 
-// literalmente, dibuja una linea.
-void linea() {
-    cout << "------------------------------------------------------------------" << endl;
-}
+
 
 //es la presentacion del juego
 void pantallaInicio() {
@@ -530,9 +514,9 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
                 
                 cls();              
                 hacerUnaTirada(vectorTirada);
-                puntajeTirada = analizarTiradaCantidad(vectorTirada);
                 mostrarTiradaDados(7,vectorTirada);
-                mostrarTiradaTexto(vectorTirada);
+
+                puntajeTirada = analizarTirada(vectorTirada);
                 
                 
                 if (puntajeTirada != 0 && puntajeParcial+puntajeTirada+vectorPuntaje[jug]<10000) {
