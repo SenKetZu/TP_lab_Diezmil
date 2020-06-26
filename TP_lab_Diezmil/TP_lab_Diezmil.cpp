@@ -105,11 +105,12 @@ int tresPares(int vectorTirada[6]) {
     if (cantPares >= 3) {
         return 1000;
     }
+    
     return 0;
 }
 
 int escaleraCompleta(int vectorTirada[6]) {
-    int control = 0;
+
     for (int i = 1; i <= 6; i++) {
         if (cantNumeros(i, vectorTirada) != 1) {
             return 0;
@@ -133,7 +134,7 @@ int sexteto(int vectorTirada[6]) {
 
 
 //devuelve cual fue la tirada ej: escalera, juego extendido, 3 pares y el puntaje.
-int analizarTirada(int vectorTirada[6]){
+int analizarTirada(int vectorTirada[6]){//100-50-0-0-0-....
     int posTirada = 0, puntajeTirada=0, valoresTiradas[9] = { JuegoDe1(vectorTirada), JuegoDe5(vectorTirada), trioDe1(vectorTirada), TrioCualquierNumero(vectorTirada), cuatroCincoUnos(vectorTirada), cuatroCincoJuegos(vectorTirada), tresPares(vectorTirada), escaleraCompleta(vectorTirada),sexteto(vectorTirada) };
 
     
@@ -178,9 +179,9 @@ void hacerUnaTirada(int vectorTirada[6]) {
 //esta muestra un dado por pantalla dependiendo del numero, se usa para construir la tirada entera.
 void mostrarUnDado(int x, int y, int numero) {
     //Caras del dado
-    
-    switch (numero)
-    {
+    //4-7-2
+    switch (numero){
+
     case 1: {
         locate(x + 4, y + 2); cout<<(char)219;
         locate(x + 5, y + 2); cout<<(char)219;
@@ -337,13 +338,11 @@ bool seguirTirando(int vectorPuntaje[2], int jug, int puntajeParcial) {
     }
 }
 
-
-
 //es la presentacion del juego
 void pantallaInicio() {
     srand(time(NULL));
     hidecursor();
-
+    
     system("mode con: cols=66 lines=30");
 
     linea();
@@ -372,15 +371,19 @@ int opcionesJuego(string vectorJugadores[2]) {
 
     if (corte == 49) {
         cout << "nombre del jugador 1: ";
+        showcursor();
         cin >> vectorJugadores[0];
+        hidecursor();
     }
     else {
+        showcursor();
         cout << "nombre del jugador 1: ";
         cin >> vectorJugadores[0];
         linea();
         cout << "nombre del jugador 2: ";
         cin >> vectorJugadores[1];
         linea();
+        hidecursor();
         msleep(1500);
     }
     cls();
