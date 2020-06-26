@@ -363,18 +363,21 @@ int opcionesJuego(string vectorJugadores[2]) {
         cout << "seleccione modo de juego:" << endl;
         linea();
         cout << "1- modo un jugador.\n";
-        cout << "2- modo dos jugadores\n";
+        cout << "2- modo dos jugadores.\n";
+        // getch te lee lo que apretas en el teclado
         corte = getch();
         linea();
 
     } while (!(corte == 49 || corte == 50));
 
+    //si apretaste 1
     if (corte == 49) {
         cout << "nombre del jugador 1: ";
         showcursor();
         cin >> vectorJugadores[0];
         hidecursor();
     }
+    //si apretaste 2
     else {
         showcursor();
         cout << "nombre del jugador 1: ";
@@ -398,7 +401,7 @@ int opcionesJuego(string vectorJugadores[2]) {
 //esta dibuja la interfaz que se ve durante todo el juego
 void interfaz(int jugador, int ronda, int lanz, int puntaje, int puntParcial, string vectorJugadores[2]) {
     locate(1,1);
-    cout << "Turno de : "<<vectorJugadores[jugador]<< " | rondaa N* "<<ronda << "| Puntaje total: "<<puntaje << endl;
+    cout << "Turno de : "<<vectorJugadores[jugador]<< " | ronda N* "<<ronda << "| Puntaje total: "<<puntaje << endl;
     linea();
 
     cout << "\nPuntaje total de la ronda: "<<puntParcial <<"\n\nLanzamiento N*"<<lanz;
