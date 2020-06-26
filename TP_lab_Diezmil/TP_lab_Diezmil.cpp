@@ -338,7 +338,7 @@ bool seguirTirando(int vectorPuntaje[2], int jug, int puntajeParcial) {
     }
 }
 
-//es la presentacion del juego
+//es la presentacion del juego  
 void pantallaInicio() {
     srand(time(NULL));
     hidecursor();
@@ -404,7 +404,7 @@ void interfaz(int jugador, int ronda, int lanz, int puntaje, int puntParcial, st
     cout << "Turno de : "<<vectorJugadores[jugador]<< " | ronda N* "<<ronda << "| Puntaje total: "<<puntaje << endl;
     linea();
 
-    cout << "\nPuntaje total de la ronda: "<<puntParcial <<"\n\nLanzamiento N*"<<lanz;
+    cout << "\nPuntaje de la ronda: "<<puntParcial <<"\n\nLanzamiento N*"<<lanz;
    
     
 }
