@@ -41,11 +41,14 @@ void linea() {
 //----------------------------Jugadas posibles-------------------------------------------
 //---------------------------------------------------------------------------------------
 
+
 int JuegoDe1(int vectorTirada[6]) {
+    //pregunta si hay uno o dos 1 en la tirada, y te da el puntaje.
     if (cantNumeros(1, vectorTirada) == 1 || cantNumeros(1, vectorTirada) == 2) {
         return cantNumeros(1, vectorTirada) * 100;
     }
-    else { return 0; }
+    return 0;
+
 }
 
 int JuegoDe5(int vectorTirada[6]) {
@@ -88,15 +91,18 @@ int cuatroCincoUnos(int vectorTirada[6]) {
 }
 
 int tresPares(int vectorTirada[6]) {
+    
     int cantPares = 0;
+
+
     for (int i = 1; i <= 6; i++) {
         for (int j = 1; j <= 3; j++) {
-            if (cantNumeros(i, vectorTirada) % (j * 2) == 0) {
+            if (cantNumeros(i, vectorTirada) !=0&&cantNumeros(i, vectorTirada) % (j * 2) == 0) {
                 cantPares += j;
             }
         }
     }
-    if (cantPares == 3) {
+    if (cantPares >= 3) {
         return 1000;
     }
     return 0;
@@ -309,7 +315,7 @@ bool seguirTirando(int vectorPuntaje[2], int jug, int puntajeParcial) {
         //vacia el getch
         while (kbhit())
             getch();
-                
+        //----------------        
         
 
         int tecla = getch();
