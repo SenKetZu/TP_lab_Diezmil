@@ -11,17 +11,23 @@ using namespace rlutil;
 
 //--------------------funcionales----------------------------
 int cantNumeros(int elNumeroAcontar,int vectorTirada[6]) {
+    //vector auxiliar, en la posicion 1 esta la cantidad de 1 que hay, y asi sucecivamente
     int cantNumeros[6];
+
+    //este ciclo rellena el vector aux con ceros
     for (int i = 0; i <= 5; i++) {
         cantNumeros[i] = 0;
     }
+    
     for (int i = 0; i <= 5; i++) {
-        for (int j = 0; j <=5; j++) {
-            if (vectorTirada[j] == i+1) {
+        for (int j = 0; j <=5; j++) {// j va llenando el vector con la cantidad de numeros, en cada posicion, por ejemplo en j=0 va a guardar todos los 1 que hay
+            
+            if (vectorTirada[j] == i+1) {//i+1 es el numero que busca 
                 cantNumeros[i]++;
             }
         }
     }
+
     return cantNumeros[elNumeroAcontar-1];
 }
 
