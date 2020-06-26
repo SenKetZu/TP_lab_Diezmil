@@ -6,6 +6,7 @@
 #include "rlutil.h"
 
 
+
 using namespace std;
 using namespace rlutil;
 
@@ -19,8 +20,8 @@ int cantNumeros(int elNumeroAcontar,int vectorTirada[6]) {
         cantNumeros[i] = 0;
     }
     
-    for (int i = 0; i <= 5; i++) {
-        for (int j = 0; j <=5; j++) {// j va llenando el vector con la cantidad de numeros, en cada posicion, por ejemplo en j=0 va a guardar todos los 1 que hay
+    for (int i = 0; i <= 5; i++) {// i va llenando el vector con la cantidad de numeros, en cada posicion, por ejemplo en i=0 va a guardar todos los 1 que hay
+        for (int j = 0; j <=5; j++) {//j recorre la tirada buscando el numero que le pasa la variable i.
             
             if (vectorTirada[j] == i+1) {//i+1 es el numero que busca 
                 cantNumeros[i]++;
@@ -308,8 +309,7 @@ bool seguirTirando(int vectorPuntaje[2], int jug, int puntajeParcial) {
         //vacia el getch
         while (kbhit())
             getch();
-        //-------------->                                                                                                                                                                                                                                                                                                                                 Brian se la come, pero se lo quiere igual.
-        
+                
         
 
         int tecla = getch();
