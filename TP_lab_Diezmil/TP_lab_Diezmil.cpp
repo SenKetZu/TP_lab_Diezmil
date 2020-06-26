@@ -9,7 +9,7 @@
 using namespace std;
 using namespace rlutil;
 
-//el puto tasdasd tu hermana
+
 int cantNumeros(int elNumeroAcontar,int vectorTirada[6]) {
     int cantNumeros[6];
     for (int i = 0; i <= 5; i++) {
@@ -29,7 +29,8 @@ int cantNumeros(int elNumeroAcontar,int vectorTirada[6]) {
 //---------------------------------------------------------------------------------------
 //----------------------------Jugadas posibles-------------------------------------------
 //---------------------------------------------------------------------------------------
-/**Funciones jugadas**/
+
+
 int JuegoDe1(int vectorTirada[6]) {
     if (cantNumeros(1, vectorTirada) == 1 || cantNumeros(1, vectorTirada) == 2) {
         return cantNumeros(1, vectorTirada) * 100;
@@ -111,9 +112,12 @@ int sexteto(int vectorTirada[6]) {
 
 //---------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------
+
 //---------------------------------------------------------------------------------------
 //-------------------FUNCIONES SOBRE LA TIRADA-------------------------------------------
 //---------------------------------------------------------------------------------------
+
+//devuelte el puntaje de la tirada
 int analizarTiradaCantidad(int vectorTirada[6]) {
     int  puntajeTirada = 0, valoresTiradas[9] = { JuegoDe1(vectorTirada), JuegoDe5(vectorTirada), trioDe1(vectorTirada), TrioCualquierNumero(vectorTirada), cuatroCincoUnos(vectorTirada), cuatroCincoJuegos(vectorTirada), tresPares(vectorTirada), escaleraCompleta(vectorTirada),sexteto(vectorTirada) };
 
@@ -128,6 +132,7 @@ int analizarTiradaCantidad(int vectorTirada[6]) {
     return puntajeTirada;
 }
 
+//devuelve cual fue la tirada ej: escalera, juego extendido, 3 pares.
 void mostrarTiradaTexto(int vectorTirada[6]){
     int posTirada = 0, puntajeTirada=0, valoresTiradas[9] = { JuegoDe1(vectorTirada), JuegoDe5(vectorTirada), trioDe1(vectorTirada), TrioCualquierNumero(vectorTirada), cuatroCincoUnos(vectorTirada), cuatroCincoJuegos(vectorTirada), tresPares(vectorTirada), escaleraCompleta(vectorTirada),sexteto(vectorTirada) };
 
@@ -161,6 +166,7 @@ void mostrarTiradaTexto(int vectorTirada[6]){
 
 }
 
+//hace una tirada => le pone valores aleatorios al vector tirada
 void hacerUnaTirada(int vectorTirada[6]) {
 	
 	for (int i = 0; i < 6;i++) {
@@ -169,6 +175,7 @@ void hacerUnaTirada(int vectorTirada[6]) {
 	}
 }
 
+//esta muestra un dado por pantalla dependiendo del numero, se usa para construir la tirada entera.
 void mostrarUnDado(int x, int y, int numero) {
     //Caras del dado
     
@@ -268,6 +275,7 @@ void mostrarUnDado(int x, int y, int numero) {
     
 }
 
+//muestra la tirada completa dibujando los 6 dados con sus numeros correspondientes
 void mostrarTiradaDados(int y, int vectorTirada[6]) {
     
     for (int i = 0,posX=4; i < 6;i++,posX+=10) {
@@ -294,6 +302,8 @@ void mostrarTiradaDados(int y, int vectorTirada[6]) {
 
 
 //----------------------------------INTERFACES ------------------------------------------
+
+//te pregunta si queres seguir tirando dados para acumular puntos
 bool seguirTirando(int vectorPuntaje[2], int jug, int puntajeParcial) {
     locate(1, 16); cout << "seguir tirando?(Y/N)";
 
@@ -328,10 +338,12 @@ bool seguirTirando(int vectorPuntaje[2], int jug, int puntajeParcial) {
     }
 }
 
+// literalmente, dibuja una linea.
 void linea() {
     cout << "------------------------------------------------------------------" << endl;
 }
 
+//es la presentacion del juego
 void pantallaInicio() {
     srand(time(NULL));
     hidecursor();
@@ -343,9 +355,10 @@ void pantallaInicio() {
     cout << "\t\    Presione cualquier tecla para continuar" << endl;
     linea();
 
-
+    locate(47, 29); cout  << " elfos.exe "<<(char)184  << " - 1750";
 }
 
+//aca se decide la cantidad de jugadores.
 int opcionesJuego(string vectorJugadores[2]) {
     int corte = 0;
 
@@ -383,6 +396,7 @@ int opcionesJuego(string vectorJugadores[2]) {
     }
 }
 
+//esta dibuja la interfaz que se ve durante todo el juego
 void interfaz(int jugador, int ronda, int lanz, int puntaje, int puntParcial, string vectorJugadores[2]) {
     locate(1,1);
     cout << "Turno de : "<<vectorJugadores[jugador]<< " | rondaa N* "<<ronda << "| Puntaje total: "<<puntaje << endl;
@@ -392,7 +406,10 @@ void interfaz(int jugador, int ronda, int lanz, int puntaje, int puntParcial, st
    
     
 }
-// -----------------------Marco de puntuaciones -----------------------------------
+
+// -----------------------Marco de puntuaciones ----------------------------------------------------------------------------------------------------
+
+//muestra las puntuaciones en la ronda actual
 void mostrarMarcoPuntuaciones(int ronda, int jugadorActual, string vectorJugadores[2], int vectorPuntaje[2], int cantJugadores) {
     if (cantJugadores==1) {
         //determina el proximo jugador
@@ -440,9 +457,37 @@ void mostrarMarcoPuntuaciones(int ronda, int jugadorActual, string vectorJugador
     //-------------------------------------------------------------------
 }
 
-void pantallaGanadora(int ronda, int jugador, string vectorJugadores[2]) {
+//muestra quien gano y en que ronda.
+bool pantallaGanadora(int ronda, int jugador, string vectorJugadores[2]) {
 
-    locate(10, 10); cout << vectorJugadores[jugador]<<" gano en la ronda "<<ronda;
+    locate(10, 10); cout <<"\t"<< vectorJugadores[jugador]<<" Gano en la ronda "<<ronda;
+
+    //horizontal
+    for (int i = 1; i < 50; i++) {
+        locate(i + 8, 5); cout << (char)196;
+        locate(i + 8, 14); cout << (char)196;
+    }
+    //vertical
+    for (int i = 1; i < 10; i++) {
+        locate(9, i + 4); cout << (char)179;
+        locate(58, i + 4); cout << (char)179;
+    }
+    //esquinas
+    locate(9, 14); cout << (char)192;
+    locate(9, 5); cout << (char)218;
+    locate(58, 5); cout << (char)191;
+    locate(58, 14); cout << (char)217;
+    
+    
+    return true;
+    
+    
+    msleep(2000);
+}
+
+//muestra un cuadro de empate y en que ronda termino.
+void pantallaEmpate(int ronda) {
+    locate(10, 10); cout << "\t" << " El juego termino en empate en la ronda: " << ronda;
 
     //horizontal
     for (int i = 1; i < 50; i++) {
@@ -461,6 +506,8 @@ void pantallaGanadora(int ronda, int jugador, string vectorJugadores[2]) {
     locate(58, 14); cout << (char)217;
     msleep(2000);
 }
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 //--------------------------------------------------------------------
@@ -468,6 +515,8 @@ void pantallaGanadora(int ronda, int jugador, string vectorJugadores[2]) {
 //--------------------------------------------------------------------
 
 void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string vectorJugadores[2]) {
+    
+    bool ganoAlguien = false;
 
     for (int rondas = 1; rondas <= 10; rondas++) {
                                                                                                                                                                                                                                                                                                                                                                                                                                                             //https://cutt.ly/eu6Ape5
@@ -486,7 +535,7 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
                 mostrarTiradaTexto(vectorTirada);
                 
                 
-                if (puntajeTirada != 0 && puntajeParcial+puntajeTirada+vectorPuntaje[jug]<=10000) {
+                if (puntajeTirada != 0 && puntajeParcial+puntajeTirada+vectorPuntaje[jug]<10000) {
                     
                     
                     puntajeParcial += puntajeTirada;
@@ -495,25 +544,36 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
                                                          
                 }else{
                     seguirHaciendoTiradas = false;
-
+                    if (cantJugadores == 0 && puntajeParcial + puntajeTirada + vectorPuntaje[jug] == 10000) {
+                        cls();
+                        ganoAlguien= pantallaGanadora(rondas, jug, vectorJugadores);
+                        jug = 2;
+                        rondas = 11;
+                        msleep(2000);
+                        break;
+                    }
+                    
+                    //si te sale un sexteto
                     if (puntajeTirada==999999) {
                         
                         cls();
-                        pantallaGanadora(rondas, jug, vectorJugadores);
+                        ganoAlguien = pantallaGanadora(rondas, jug, vectorJugadores);
                         jug = 2;
                         rondas = 11;
-                        
+                        msleep(2000);
                         break;
                     }
+                    //si te pasas de 10000 en la tirada
                     else if (puntajeParcial+puntajeTirada +  vectorPuntaje[jug] > 10000) {
+                        
                         cls();
                         mostrarTiradaDados(7, vectorTirada);
                         interfaz(jug, rondas, lanzamiento, vectorPuntaje[jug], puntajeParcial, vectorJugadores);
-                        puntajeParcial = 0;
-
-                        locate(1, 13); cout << "Te pasaste       ";                        
-                        msleep(2000);      
                         
+
+                        locate(1, 13); cout << "Te pasaste "<< (puntajeParcial + puntajeTirada + vectorPuntaje[jug]) - 10000<<" puntos";
+                        msleep(2000);      
+                        puntajeParcial = 0;
 
                     }
                     else if(puntajeTirada==0) {
@@ -533,7 +593,7 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
                 
                 
                 
-                cls();
+
                 puntajeTirada = 0;
                 lanzamiento++;
             } 
@@ -541,19 +601,43 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
             mostrarMarcoPuntuaciones(rondas,jug, vectorJugadores, vectorPuntaje, cantJugadores);
             msleep(4000);
         }       
-     
-        if (vectorPuntaje[0]==10000) {
+        if (vectorPuntaje[0] == 10000&& vectorPuntaje[1] == 10000) {
             cls();
-            pantallaGanadora(rondas,0,vectorJugadores);
+            pantallaEmpate(rondas);
+            break;
+        }
+        else if (vectorPuntaje[0]==10000) {
+            cls();
+            ganoAlguien = pantallaGanadora(rondas,0,vectorJugadores);
             break;
 
         }
         else if (vectorPuntaje[1] == 10000) {
             cls();
-            pantallaGanadora(rondas, 1, vectorJugadores);
+            ganoAlguien = pantallaGanadora(rondas, 1, vectorJugadores);
             break;
         }
     }
+
+
+
+
+    if (ganoAlguien) {
+        if(vectorPuntaje[0] == vectorPuntaje[1]) {
+            cls();
+            pantallaEmpate(10);
+
+        }
+        else if (vectorPuntaje[0] > vectorPuntaje[1]) {
+            cls();
+            pantallaGanadora(10,0, vectorJugadores);
+        }
+        else {
+            cls();
+            pantallaGanadora(10, 1, vectorJugadores);
+        }
+    }
+    msleep(1000);
 }
 
 //--------------------------------------------------------------------
@@ -570,8 +654,7 @@ int main() {
     pantallaInicio();
     anykey();
     cls();
-    int cantJugadores = opcionesJuego(vectorJugadores);
-    Juego(cantJugadores, vectorTirada, vectorPuntaje, vectorJugadores);
+    Juego(opcionesJuego(vectorJugadores), vectorTirada, vectorPuntaje, vectorJugadores);
    
 
     
