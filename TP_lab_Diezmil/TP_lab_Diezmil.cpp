@@ -171,7 +171,8 @@ int analizarTirada(int vectorTirada[6]){//100-50-0-0-0-....
 void hacerUnaTirada(int vectorTirada[6]) {
 	
 	for (int i = 0; i < 6;i++) {
-		vectorTirada[i] = rand() % 6 + 1;
+		
+        vectorTirada[i] = rand() % 6 + 1;
 
 	}
 }
@@ -624,7 +625,7 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
 
 
 
-    if (ganoAlguien) {
+    if (!ganoAlguien) {
         if(vectorPuntaje[0] == vectorPuntaje[1]) {
             cls();
             pantallaEmpate(10);
