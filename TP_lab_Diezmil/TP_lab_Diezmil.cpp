@@ -279,7 +279,7 @@ void mostrarUnDado(int x, int y, int numero) {
 
 //muestra la tirada completa dibujando los 6 dados con sus numeros correspondientes
 void mostrarTiradaDados(int y, int vectorTirada[6]) {
-    
+    cls();
     for (int i = 0,posX=4; i < 6;i++,posX+=10) {
 		switch (vectorTirada[i])
 		{
@@ -414,6 +414,7 @@ void interfaz(int jugador, int ronda, int lanz, int puntaje, int puntParcial, st
 
 //muestra las puntuaciones en la ronda actual
 void mostrarMarcoPuntuaciones(int ronda, int jugadorActual, string vectorJugadores[2], int vectorPuntaje[2], int cantJugadores) {
+    cls();
     if (cantJugadores==1) {
         //determina el proximo jugador
         int proxJugador;
@@ -461,9 +462,9 @@ void mostrarMarcoPuntuaciones(int ronda, int jugadorActual, string vectorJugador
 }
 
 //muestra quien gano y en que ronda.
-bool pantallaGanadora(int ronda, int jugador, string vectorJugadores[2]) {
-
-    locate(10, 10); cout <<"\t"<< vectorJugadores[jugador]<<" Gano en la ronda "<<ronda;
+bool pantallaGanadora(int ronda, int jugador, string vectorJugadores[2], int vectorPuntaje[2]) {
+    cls();
+    locate(10, 10); cout << vectorJugadores[jugador]<<"   Gano en la ronda "<<ronda<<"con: "<<vectorPuntaje[jugador]<<" Puntos";
 
     //horizontal
     for (int i = 1; i < 50; i++) {
@@ -490,6 +491,7 @@ bool pantallaGanadora(int ronda, int jugador, string vectorJugadores[2]) {
 
 //muestra un cuadro de empate y en que ronda termino.
 void pantallaEmpate(int ronda) {
+    cls();
     locate(10, 10); cout << "\t" << " El juego termino en empate en la ronda: " << ronda;
 
     //horizontal
@@ -530,26 +532,25 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
             int lanzamiento = 1, puntajeParcial=0, puntajeTirada=0;
             
             while (seguirHaciendoTiradas) {
-                
-                cls();              
+                            
                 hacerUnaTirada(vectorTirada);
                 mostrarTiradaDados(7,vectorTirada);
 
                 puntajeTirada = analizarTirada(vectorTirada);
                 
-                
+                //si la tirada sale normal
                 if (puntajeTirada != 0 && puntajeParcial+puntajeTirada+vectorPuntaje[jug]<10000) {
-                    
-                    
-                    puntajeParcial += puntajeTirada;
-                    
+                                        
+                    puntajeParcial += puntajeTirada;                    
                     interfaz(jug, rondas, lanzamiento, vectorPuntaje[jug], puntajeParcial, vectorJugadores);
                                                          
-                }else{
+                }
+                //cualquier otra cosa
+                else{
                     seguirHaciendoTiradas = false;
                     if (cantJugadores == 0 && puntajeParcial + puntajeTirada + vectorPuntaje[jug] == 10000) {
-                        cls();
-                        ganoAlguien= pantallaGanadora(rondas, jug, vectorJugadores);
+
+                        ganoAlguien= pantallaGanadora(rondas, jug, vectorJugadores, vectorPuntaje);
                         jug = 2;
                         rondas = 11;
                         msleep(2000);
@@ -558,18 +559,18 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
                     
                     //si te sale un sexteto
                     if (puntajeTirada==999999) {
-                        
-                        cls();
-                        ganoAlguien = pantallaGanadora(rondas, jug, vectorJugadores);
+                              
+                        ganoAlguien = pantallaGanadora(rondas, jug, vectorJugadores, vectorPuntaje);
                         jug = 2;
                         rondas = 11;
                         msleep(2000);
                         break;
                     }
+                   
                     //si te pasas de 10000 en la tirada
                     else if (puntajeParcial+puntajeTirada +  vectorPuntaje[jug] > 10000) {
                         
-                        cls();
+
                         mostrarTiradaDados(7, vectorTirada);
                         interfaz(jug, rondas, lanzamiento, vectorPuntaje[jug], puntajeParcial, vectorJugadores);
                         
@@ -579,65 +580,49 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
                         puntajeParcial = 0;
 
                     }
+                    
                     else if(puntajeTirada==0) {
                         puntajeParcial = 0;
                         interfaz(jug, rondas, lanzamiento, vectorPuntaje[jug], puntajeParcial, vectorJugadores);
                         lanzamiento = 0;
-
-                        msleep(2000);
-                        
+                        msleep(2000);                       
                     }                                                           
                 }
-                if (seguirHaciendoTiradas){ 
-                    
+                
+                if (seguirHaciendoTiradas){                     
                     seguirHaciendoTiradas =seguirTirando(vectorPuntaje, jug, puntajeParcial);
-
-                }
-                
-                
-                
-
+                }                                               
                 puntajeTirada = 0;
                 lanzamiento++;
             } 
-            cls();
+
             mostrarMarcoPuntuaciones(rondas,jug, vectorJugadores, vectorPuntaje, cantJugadores);
             msleep(4000);
         }       
         if (vectorPuntaje[0] == 10000&& vectorPuntaje[1] == 10000) {
-            cls();
             pantallaEmpate(rondas);
             break;
         }
         else if (vectorPuntaje[0]==10000) {
-            cls();
-            ganoAlguien = pantallaGanadora(rondas,0,vectorJugadores);
+            ganoAlguien = pantallaGanadora(rondas,0,vectorJugadores, vectorPuntaje);
             break;
 
         }
         else if (vectorPuntaje[1] == 10000) {
-            cls();
-            ganoAlguien = pantallaGanadora(rondas, 1, vectorJugadores);
+            ganoAlguien = pantallaGanadora(rondas, 1, vectorJugadores, vectorPuntaje);
             break;
         }
     }
 
-
-
-
     if (!ganoAlguien) {
         if(vectorPuntaje[0] == vectorPuntaje[1]) {
-            cls();
             pantallaEmpate(10);
-
         }
         else if (vectorPuntaje[0] > vectorPuntaje[1]) {
-            cls();
-            pantallaGanadora(10,0, vectorJugadores);
+            pantallaGanadora(10,0, vectorJugadores, vectorPuntaje);
         }
         else {
-            cls();
-            pantallaGanadora(10, 1, vectorJugadores);
+            pantallaGanadora(10, 1, vectorJugadores, vectorPuntaje);
         }
     }
     msleep(1000);
