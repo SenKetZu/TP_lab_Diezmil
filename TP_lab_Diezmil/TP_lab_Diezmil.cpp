@@ -183,82 +183,75 @@ void mostrarUnDado(int x, int y, int numero) {
     //4-7-2
     switch (numero){
 
-    case 1: {
-        locate(x + 4, y + 2); cout<<(char)219;
-        locate(x + 5, y + 2); cout<<(char)219;
+        case 1: {
+            locate(x + 4, y + 2); cout<<(char)219;
+            locate(x + 5, y + 2); cout<<(char)219;
         
-        break; }
-
-    case 2: {
-        locate(x + 1, y + 1); cout<<(char)219;
-        locate(x + 2, y + 1); cout<<(char)219;
-        locate(x + 7, y + 3); cout<<(char)219;
-        locate(x + 8, y + 3); cout<<(char)219;
+            break; }
+        case 2: {
+            locate(x + 1, y + 1); cout<<(char)219;
+            locate(x + 2, y + 1); cout<<(char)219;
+            locate(x + 7, y + 3); cout<<(char)219;
+            locate(x + 8, y + 3); cout<<(char)219;
         
-        break; }
-
-    case 3: {
-        locate(x + 4, y + 2); cout<<(char)219;
-        locate(x + 5, y + 2); cout<<(char)219;
-        locate(x + 1, y + 1); cout<<(char)219;
-        locate(x + 2, y + 1); cout<<(char)219;
-        locate(x + 7, y + 3); cout<<(char)219;
-        locate(x + 8, y + 3); cout<<(char)219;
+            break; }
+        case 3: {
+            locate(x + 4, y + 2); cout<<(char)219;
+            locate(x + 5, y + 2); cout<<(char)219;
+            locate(x + 1, y + 1); cout<<(char)219;
+            locate(x + 2, y + 1); cout<<(char)219;
+            locate(x + 7, y + 3); cout<<(char)219;
+            locate(x + 8, y + 3); cout<<(char)219;
         
-        break; }
+            break; }
+        case 4: {
+            locate(x + 1, y + 1); cout<<(char)219;
+            locate(x + 2, y + 1); cout<<(char)219;
+            locate(x + 7, y + 3); cout<<(char)219;
+            locate(x + 8, y + 3); cout<<(char)219;
 
-    case 4: {
-        locate(x + 1, y + 1); cout<<(char)219;
-        locate(x + 2, y + 1); cout<<(char)219;
-        locate(x + 7, y + 3); cout<<(char)219;
-        locate(x + 8, y + 3); cout<<(char)219;
-
-        locate(x + 1, y + 3); cout<<(char)219;
-        locate(x + 2, y + 3); cout<<(char)219;
-        locate(x + 7, y + 1); cout<<(char)219;
-        locate(x + 8, y + 1); cout<<(char)219;
+            locate(x + 1, y + 3); cout<<(char)219;
+            locate(x + 2, y + 3); cout<<(char)219;
+            locate(x + 7, y + 1); cout<<(char)219;
+            locate(x + 8, y + 1); cout<<(char)219;
         
-        break; }
-
-    case 5: {
-        locate(x + 1, y + 1); cout<<(char)219;
-        locate(x + 2, y + 1); cout<<(char)219;
-        locate(x + 7, y + 3); cout<<(char)219;
-        locate(x + 8, y + 3); cout<<(char)219;
-        locate(x + 4, y + 2); cout<<(char)219;
-        locate(x + 5, y + 2); cout<<(char)219;
-        locate(x + 1, y + 3); cout<<(char)219;
-        locate(x + 2, y + 3); cout<<(char)219;
-        locate(x + 7, y + 1); cout<<(char)219;
-        locate(x + 8, y + 1); cout<<(char)219;
+            break; }
+        case 5: {
+            locate(x + 1, y + 1); cout<<(char)219;
+            locate(x + 2, y + 1); cout<<(char)219;
+            locate(x + 7, y + 3); cout<<(char)219;
+            locate(x + 8, y + 3); cout<<(char)219;
+            locate(x + 4, y + 2); cout<<(char)219;
+            locate(x + 5, y + 2); cout<<(char)219;
+            locate(x + 1, y + 3); cout<<(char)219;
+            locate(x + 2, y + 3); cout<<(char)219;
+            locate(x + 7, y + 1); cout<<(char)219;
+            locate(x + 8, y + 1); cout<<(char)219;
         
-        break; }
+            break; }
+        case 6: {
+            locate(x + 1, y + 1); cout<<(char)219;
+            locate(x + 2, y + 1); cout<<(char)219;
+            locate(x + 7, y + 3); cout<<(char)219;
+            locate(x + 8, y + 3); cout<<(char)219;
 
-    case 6: {
-        locate(x + 1, y + 1); cout<<(char)219;
-        locate(x + 2, y + 1); cout<<(char)219;
-        locate(x + 7, y + 3); cout<<(char)219;
-        locate(x + 8, y + 3); cout<<(char)219;
+            locate(x + 1, y + 3); cout<<(char)219;
+            locate(x + 2, y + 3); cout<<(char)219;
+            locate(x + 7, y + 1); cout<<(char)219;
+            locate(x + 8, y + 1); cout<<(char)219;
 
-        locate(x + 1, y + 3); cout<<(char)219;
-        locate(x + 2, y + 3); cout<<(char)219;
-        locate(x + 7, y + 1); cout<<(char)219;
-        locate(x + 8, y + 1); cout<<(char)219;
-
-        locate(x + 4, y + 1); cout<<(char)219;
-        locate(x + 5, y + 1); cout<<(char)219;
-        locate(x + 4, y + 3); cout<<(char)219;
-        locate(x + 5, y + 3); cout<<(char)219;
+            locate(x + 4, y + 1); cout<<(char)219;
+            locate(x + 5, y + 1); cout<<(char)219;
+            locate(x + 4, y + 3); cout<<(char)219;
+            locate(x + 5, y + 3); cout<<(char)219;
         
-        break; }
-
-
-    default:
-        break;
+            break; }
+        default:break;        
     }
 
-    //marco del dado---------------------------------------------
-       //horizontal
+    //marco del dado-----------4= al alto de los dados/9= al ancho del dado----------------------------------
+    
+    //horizontal
     for (int i = 0, ancho = x; i < 9; ancho++, i++) {
         locate(ancho, y); cout << (char)205;
         locate(ancho, 4 + y); cout<<(char)205;
@@ -280,20 +273,16 @@ void mostrarUnDado(int x, int y, int numero) {
 //muestra la tirada completa dibujando los 6 dados con sus numeros correspondientes
 void mostrarTiradaDados(int y, int vectorTirada[6]) {
     cls();
-    for (int i = 0,posX=4; i < 6;i++,posX+=10) {
-		switch (vectorTirada[i])
-		{
+    for (int i = 0,posX=4; i < 6;i++,posX+=10){
+		switch (vectorTirada[i]){
 
-        case 1: {mostrarUnDado(posX, y, 1); break; }
-		case 2: {mostrarUnDado(posX, y, 2); break; }
-		case 3: {mostrarUnDado(posX, y, 3); break; }
-		case 4: {mostrarUnDado(posX, y, 4); break; }
-		case 5: {mostrarUnDado(posX, y, 5); break; }
-		case 6: {mostrarUnDado(posX, y, 6); break; }
-		
-		
-		default:
-			break;
+            case 1: {mostrarUnDado(posX, y, 1); break; }
+		    case 2: {mostrarUnDado(posX, y, 2); break; }
+		    case 3: {mostrarUnDado(posX, y, 3); break; }
+		    case 4: {mostrarUnDado(posX, y, 4); break; }
+		    case 5: {mostrarUnDado(posX, y, 5); break; }
+		    case 6: {mostrarUnDado(posX, y, 6); break; }		
+		    default:break;			
 		}
 	}
     
@@ -334,7 +323,7 @@ bool seguirTirando(int vectorPuntaje[2], int jug, int puntajeParcial) {
             return true;
         }
         else {
-            system("pause");
+            cout<<endl<<"Ingrese una opcion valida";
         }
     }
 }
@@ -548,6 +537,8 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
                 //cualquier otra cosa
                 else{
                     seguirHaciendoTiradas = false;
+                    
+                    //si llegas a 10000 y jugas solo, termina la partida
                     if (cantJugadores == 0 && puntajeParcial + puntajeTirada + vectorPuntaje[jug] == 10000) {
 
                         ganoAlguien= pantallaGanadora(rondas, jug, vectorJugadores, vectorPuntaje);
@@ -565,8 +556,8 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
                         rondas = 11;
                         msleep(2000);
                         break;
-                    }
-                   
+                    }                   
+                    
                     //si te pasas de 10000 en la tirada
                     else if (puntajeParcial+puntajeTirada +  vectorPuntaje[jug] > 10000) {
                         
@@ -581,6 +572,7 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
 
                     }
                     
+                    //si no te sale nada en la tirada
                     else if(puntajeTirada==0) {
                         puntajeParcial = 0;
                         interfaz(jug, rondas, lanzamiento, vectorPuntaje[jug], puntajeParcial, vectorJugadores);
@@ -595,25 +587,31 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
                 puntajeTirada = 0;
                 lanzamiento++;
             } 
-
+            //final de cada turno
             mostrarMarcoPuntuaciones(rondas,jug, vectorJugadores, vectorPuntaje, cantJugadores);
             msleep(4000);
-        }       
+        }
+
+        //si los dos terminan la ronda en 10000
         if (vectorPuntaje[0] == 10000&& vectorPuntaje[1] == 10000) {
             pantallaEmpate(rondas);
             break;
         }
+        
+        //si el jugador 1 termina la ronda en 10000
         else if (vectorPuntaje[0]==10000) {
             ganoAlguien = pantallaGanadora(rondas,0,vectorJugadores, vectorPuntaje);
             break;
 
         }
+        
+        //si el jugador 2 termina la ronda en 10000
         else if (vectorPuntaje[1] == 10000) {
             ganoAlguien = pantallaGanadora(rondas, 1, vectorJugadores, vectorPuntaje);
             break;
         }
     }
-
+    //si nadie llego a 10000 al final del juego
     if (!ganoAlguien) {
         if(vectorPuntaje[0] == vectorPuntaje[1]) {
             pantallaEmpate(10);
@@ -636,18 +634,13 @@ int main() {
     int vectorTirada[6], vectorPuntaje[2] = { 0,0 };
 
     //-------VECTORES STRING
-    string vectorJugadores[2] = { "Jugador1","Jugador2" };
-    
+    string vectorJugadores[2] = { "Jugador1","Jugador2" };    
     
     pantallaInicio();
     anykey();
     cls();
-    Juego(opcionesJuego(vectorJugadores), vectorTirada, vectorPuntaje, vectorJugadores);
-   
-
-    
-  
-    
+    Juego(opcionesJuego(vectorJugadores), vectorTirada, vectorPuntaje, vectorJugadores);    
+      
     cout << endl;
     system("pause");
 	return 0;
