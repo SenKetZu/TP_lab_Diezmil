@@ -67,6 +67,7 @@ int trioDe1(int vectorTirada[6]) {
 
 int TrioCualquierNumero(int vectorTirada[6]) {
     for (int i = 6; i > 1; i--) {
+        
         if (cantNumeros(i, vectorTirada) == 3) {
             return i * 100;
         }
@@ -76,6 +77,7 @@ int TrioCualquierNumero(int vectorTirada[6]) {
 
 int cuatroCincoJuegos(int vectorTirada[6]) {
     for (int i = 6; i > 1; i--) {
+        
         if (cantNumeros(i, vectorTirada) == 4 || cantNumeros(i, vectorTirada) == 5) {
             return i * 200;
         }
@@ -93,16 +95,17 @@ int cuatroCincoUnos(int vectorTirada[6]) {
 int tresPares(int vectorTirada[6]) {
     
     int cantPares = 0;
-
+    //3-1-2-2-2-2
 
     for (int i = 1; i <= 6; i++) {
-        for (int j = 1; j <= 3; j++) {
-            if (cantNumeros(i, vectorTirada) !=0&&cantNumeros(i, vectorTirada) % (j * 2) == 0) {
-                cantPares += j;
+
+            if (cantNumeros(i, vectorTirada) !=0&&cantNumeros(i, vectorTirada)/*4*/ % 2/*2*/ == 0) {
+                cantPares += cantNumeros(i, vectorTirada)/2;
             }
-        }
+        
     }
-    if (cantPares >= 3) {
+    //cantPares=2
+    if (cantPares == 3) {
         return 1000;
     }
     
@@ -171,8 +174,8 @@ int analizarTirada(int vectorTirada[6]){//100-50-0-0-0-....
 void hacerUnaTirada(int vectorTirada[6]) {
 	
 	for (int i = 0; i < 6;i++) {
-		
-        vectorTirada[i] = rand() % 6 + 1;
+        cin >> vectorTirada[i];
+        //vectorTirada[i] = rand() % 6 + 1;
 
 	}
 }
@@ -311,7 +314,7 @@ bool seguirTirando(int vectorPuntaje[2], int jug, int puntajeParcial) {
 
         int tecla = getch();
 
-
+        //si presiona n/N
         if (tecla == 110 || tecla == 78) {
 
             if (vectorPuntaje[jug] + puntajeParcial <= 10000) {
@@ -319,9 +322,11 @@ bool seguirTirando(int vectorPuntaje[2], int jug, int puntajeParcial) {
             }
             return false;            
         }
+        //si presiona y/Y
         else if (tecla == 89 || tecla == 121) {
             return true;
         }
+        //si presiona cualqueir otra cosa
         else {
             cout<<endl<<"Ingrese una opcion valida";
         }
@@ -448,6 +453,7 @@ void mostrarMarcoPuntuaciones(int ronda, int jugadorActual, string vectorJugador
     locate(58 , 5); cout << (char)191;
     locate(58 , 14); cout << (char)217;
     //-------------------------------------------------------------------
+    msleep(4000);
 }
 
 //muestra quien gano y en que ronda.
@@ -510,16 +516,16 @@ void pantallaEmpate(int ronda) {
 
 void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string vectorJugadores[2]) {
     
-    bool ganoAlguien = false;
+    bool ganoAlguien = false, seguirHaciendoTiradas;
 
     for (int rondas = 1; rondas <= 10; rondas++) {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                            //https://cutt.ly/eu6Ape5
-        bool seguirHaciendoTiradas = true;
-        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            //https://cutt.ly/eu6Ape5               
         for (int jug = 0; jug <= cantJugadores; jug++) {
+            
             seguirHaciendoTiradas = true;
             int lanzamiento = 1, puntajeParcial=0, puntajeTirada=0;
             
+            //este ciclo sigue haciendo tiradas mientras el jugador asi quiera y mientras no pierda.
             while (seguirHaciendoTiradas) {
                             
                 hacerUnaTirada(vectorTirada);
@@ -529,11 +535,15 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
                 
                 //si la tirada sale normal
                 if (puntajeTirada != 0 && puntajeParcial+puntajeTirada+vectorPuntaje[jug]<10000) {
-                                        
+                    
+                    
                     puntajeParcial += puntajeTirada;                    
                     interfaz(jug, rondas, lanzamiento, vectorPuntaje[jug], puntajeParcial, vectorJugadores);
-                                                         
+                    
+                    //pregunta si queres seguir tirando o te plantas.
+                    seguirHaciendoTiradas = seguirTirando(vectorPuntaje, jug, puntajeParcial);
                 }
+                
                 //cualquier otra cosa
                 else{
                     seguirHaciendoTiradas = false;
@@ -562,7 +572,6 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
                     else if (puntajeParcial+puntajeTirada +  vectorPuntaje[jug] > 10000) {
                         
 
-                        mostrarTiradaDados(7, vectorTirada);
                         interfaz(jug, rondas, lanzamiento, vectorPuntaje[jug], puntajeParcial, vectorJugadores);
                         
 
@@ -581,15 +590,13 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
                     }                                                           
                 }
                 
-                if (seguirHaciendoTiradas){                     
-                    seguirHaciendoTiradas =seguirTirando(vectorPuntaje, jug, puntajeParcial);
-                }                                               
+                
+
                 puntajeTirada = 0;
                 lanzamiento++;
             } 
             //final de cada turno
             mostrarMarcoPuntuaciones(rondas,jug, vectorJugadores, vectorPuntaje, cantJugadores);
-            msleep(4000);
         }
 
         //si los dos terminan la ronda en 10000
@@ -611,6 +618,7 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
             break;
         }
     }
+    
     //si nadie llego a 10000 al final del juego
     if (!ganoAlguien) {
         if(vectorPuntaje[0] == vectorPuntaje[1]) {
@@ -623,22 +631,27 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
             pantallaGanadora(10, 1, vectorJugadores, vectorPuntaje);
         }
     }
-    msleep(1000);
+
 }
 
 //--------------------------------------------------------------------
 //----------------------------MAIN------------------------------------
 //--------------------------------------------------------------------
 int main() {
+    
     //-------VECTORES INT
     int vectorTirada[6], vectorPuntaje[2] = { 0,0 };
 
     //-------VECTORES STRING
     string vectorJugadores[2] = { "Jugador1","Jugador2" };    
     
+    
+    
+    
     pantallaInicio();
     anykey();
     cls();
+
     Juego(opcionesJuego(vectorJugadores), vectorTirada, vectorPuntaje, vectorJugadores);    
       
     cout << endl;
