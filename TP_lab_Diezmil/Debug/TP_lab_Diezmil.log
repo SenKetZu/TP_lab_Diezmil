@@ -1,5 +1,5 @@
 ﻿  TP_lab_Diezmil.cpp
-C:\dev\TP_lab_Diezmil\TP_lab_Diezmil\TP_lab_Diezmil.cpp(347,15): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
-C:\dev\TP_lab_Diezmil\TP_lab_Diezmil\TP_lab_Diezmil.cpp(354,13): warning C4129: ' ': secuencia de escape de carácter no reconocida
-C:\dev\TP_lab_Diezmil\TP_lab_Diezmil\TP_lab_Diezmil.cpp(343): warning C4715: 'seguirTirando': no todas las rutas de acceso de control devuelven un valor
+C:\dev\TP_lab_Diezmil\TP_lab_Diezmil\TP_lab_Diezmil.cpp(339,15): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+C:\dev\TP_lab_Diezmil\TP_lab_Diezmil\TP_lab_Diezmil.cpp(346,13): warning C4129: ' ': secuencia de escape de carácter no reconocida
+C:\dev\TP_lab_Diezmil\TP_lab_Diezmil\TP_lab_Diezmil.cpp(335): warning C4715: 'seguirTirando': no todas las rutas de acceso de control devuelven un valor
   TP_lab_Diezmil.vcxproj -> C:\dev\TP_lab_Diezmil\Debug\TP_lab_Diezmil.exe

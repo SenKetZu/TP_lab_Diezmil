@@ -183,7 +183,7 @@ void hacerUnaTirada(int vectorTirada[6]) {
 //esta muestra un dado por pantalla dependiendo del numero, se usa para construir la tirada entera.
 void mostrarUnDado(int x, int y, int numero) {
     //Caras del dado
-    //4-7-2
+    
     switch (numero){
 
         case 1: {
@@ -211,15 +211,15 @@ void mostrarUnDado(int x, int y, int numero) {
             locate(x + 1, y + 1); cout<<(char)219;
             locate(x + 2, y + 1); cout<<(char)219;
 
+            locate(x + 7, y + 1); cout << (char)219;
+            locate(x + 8, y + 1); cout << (char)219;
+
+            locate(x + 1, y + 3); cout << (char)219;
+            locate(x + 2, y + 3); cout << (char)219;
+
             locate(x + 7, y + 3); cout<<(char)219;
             locate(x + 8, y + 3); cout<<(char)219;
 
-            locate(x + 1, y + 3); cout<<(char)219;
-            locate(x + 2, y + 3); cout<<(char)219;
-
-            locate(x + 7, y + 1); cout<<(char)219;
-            locate(x + 8, y + 1); cout<<(char)219;
-        
             break; }
         case 5: {
             locate(x + 1, y + 1); cout<<(char)219;
@@ -267,12 +267,12 @@ void mostrarUnDado(int x, int y, int numero) {
     for (int i = 0, ancho = x; i < 9; ancho++, i++) {
         locate(ancho, y); cout << (char)205;
         locate(ancho, 4 + y); cout<<(char)205;
-    };
+    }
     //vertical
     for (int i = 0, alto = y; i < 4; alto++, i++) {
         locate(x, alto); cout<<(char)186;
         locate(x + 9, alto); cout<<(char)186;
-    };
+    }
     //esquinas
     locate(x, y); cout << (char)201;
     locate(x, y + 4); cout << (char)200;
@@ -286,16 +286,7 @@ void mostrarUnDado(int x, int y, int numero) {
 void mostrarTiradaDados(int y, int vectorTirada[6]) {
     cls();
     for (int i = 0,posX=4; i < 6;i++,posX+=10){
-		switch (vectorTirada[i]){
-
-            case 1: {mostrarUnDado(posX, y, 1); break; }
-		    case 2: {mostrarUnDado(posX, y, 2); break; }
-		    case 3: {mostrarUnDado(posX, y, 3); break; }
-		    case 4: {mostrarUnDado(posX, y, 4); break; }
-		    case 5: {mostrarUnDado(posX, y, 5); break; }
-		    case 6: {mostrarUnDado(posX, y, 6); break; }		
-		    default:break;			
-		}
+        mostrarUnDado(posX, y, vectorTirada[i]);       
 	}
     
     cout << endl;
@@ -316,9 +307,10 @@ bool seguirTirando(int vectorPuntaje[2], int jug, int puntajeParcial) {
         msleep(100);
         
         //vacia el getch
-        while (kbhit())
+        while (kbhit()) {
             getch();
-        //----------------        
+        }            
+        //----------------
         
 
         int tecla = getch();
