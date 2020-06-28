@@ -95,16 +95,16 @@ int cuatroCincoUnos(int vectorTirada[6]) {
 int tresPares(int vectorTirada[6]) {
     
     int cantPares = 0;
-    //3-1-2-2-2-2
 
-    for (int i = 1; i <= 6; i++) {
+    //6-6-6-6-6-6
+    for (int i = 1; i <= 6; i++) {// aca me pregunta cuantos pares hay de cada numero
 
-            if (cantNumeros(i, vectorTirada) !=0&&cantNumeros(i, vectorTirada)/*4*/ % 2/*2*/ == 0) {
+            if (cantNumeros(i, vectorTirada) !=0&&cantNumeros(i, vectorTirada) % 2 == 0) {
                 cantPares += cantNumeros(i, vectorTirada)/2;
             }
         
     }
-    //cantPares=2
+
     if (cantPares == 3) {
         return 1000;
     }
@@ -174,8 +174,8 @@ int analizarTirada(int vectorTirada[6]){//100-50-0-0-0-....
 void hacerUnaTirada(int vectorTirada[6]) {
 	
 	for (int i = 0; i < 6;i++) {
-        cin >> vectorTirada[i];
-        //vectorTirada[i] = rand() % 6 + 1;
+        //cin >> vectorTirada[i];
+        vectorTirada[i] = rand() % 6 + 1;
 
 	}
 }
@@ -210,11 +210,13 @@ void mostrarUnDado(int x, int y, int numero) {
         case 4: {
             locate(x + 1, y + 1); cout<<(char)219;
             locate(x + 2, y + 1); cout<<(char)219;
+
             locate(x + 7, y + 3); cout<<(char)219;
             locate(x + 8, y + 3); cout<<(char)219;
 
             locate(x + 1, y + 3); cout<<(char)219;
             locate(x + 2, y + 3); cout<<(char)219;
+
             locate(x + 7, y + 1); cout<<(char)219;
             locate(x + 8, y + 1); cout<<(char)219;
         
@@ -222,12 +224,16 @@ void mostrarUnDado(int x, int y, int numero) {
         case 5: {
             locate(x + 1, y + 1); cout<<(char)219;
             locate(x + 2, y + 1); cout<<(char)219;
+
             locate(x + 7, y + 3); cout<<(char)219;
             locate(x + 8, y + 3); cout<<(char)219;
+
             locate(x + 4, y + 2); cout<<(char)219;
             locate(x + 5, y + 2); cout<<(char)219;
+
             locate(x + 1, y + 3); cout<<(char)219;
             locate(x + 2, y + 3); cout<<(char)219;
+
             locate(x + 7, y + 1); cout<<(char)219;
             locate(x + 8, y + 1); cout<<(char)219;
         
@@ -235,16 +241,19 @@ void mostrarUnDado(int x, int y, int numero) {
         case 6: {
             locate(x + 1, y + 1); cout<<(char)219;
             locate(x + 2, y + 1); cout<<(char)219;
+            
             locate(x + 7, y + 3); cout<<(char)219;
             locate(x + 8, y + 3); cout<<(char)219;
 
             locate(x + 1, y + 3); cout<<(char)219;
             locate(x + 2, y + 3); cout<<(char)219;
+            
             locate(x + 7, y + 1); cout<<(char)219;
             locate(x + 8, y + 1); cout<<(char)219;
 
             locate(x + 4, y + 1); cout<<(char)219;
             locate(x + 5, y + 1); cout<<(char)219;
+           
             locate(x + 4, y + 3); cout<<(char)219;
             locate(x + 5, y + 3); cout<<(char)219;
         
