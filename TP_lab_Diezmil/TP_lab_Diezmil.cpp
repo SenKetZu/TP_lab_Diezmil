@@ -12,24 +12,19 @@ using namespace rlutil;
 
 //--------------------funcionales----------------------------
 int cantNumeros(int elNumeroAcontar,int vectorTirada[6]) {
-    //vector auxiliar, en la posicion 1 esta la cantidad de 1 que hay, y asi sucecivamente
-    int cantNumeros[6];
 
-    //este ciclo rellena el vector aux con ceros
-    for (int i = 0; i <= 5; i++) {
-        cantNumeros[i] = 0;
-    }
-    
-    for (int i = 0; i <= 5; i++) {// i va llenando el vector con la cantidad de numeros, en cada posicion, por ejemplo en i=0 va a guardar todos los 1 que hay
-        for (int j = 0; j <=5; j++) {//j recorre la tirada buscando el numero que le pasa la variable i.
-            
-            if (vectorTirada[j] == i+1) {//i+1 es el numero que busca 
-                cantNumeros[i]++;
-            }
+    int cant = 0;
+
+    for (int j = 0; j <=5; j++) {
+
+        if (vectorTirada[j] == elNumeroAcontar) {
+
+            cant++;
         }
     }
 
-    return cantNumeros[elNumeroAcontar-1];
+
+    return cant;
 }
 
 // literalmente, dibuja una linea.
@@ -576,7 +571,7 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
                         interfaz(jug, rondas, lanzamiento, vectorPuntaje[jug], puntajeParcial, vectorJugadores);
                         
 
-                        locate(1, 13); cout << "Te pasaste "<< (puntajeParcial + puntajeTirada + vectorPuntaje[jug]) - 10000<<" puntos";
+                        locate(1, 13); cout << "Te pasaste "<< (puntajeParcial + puntajeTirada + vectorPuntaje[jug]) - 10000<<" puntos                                                     ";
                         msleep(2000);      
                         puntajeParcial = 0;
 
@@ -654,7 +649,7 @@ int main() {
     cls();
 
     Juego(opcionesJuego(vectorJugadores), vectorTirada, vectorPuntaje, vectorJugadores);    
-      
+    
     cout << endl;
     system("pause");
 	return 0;
