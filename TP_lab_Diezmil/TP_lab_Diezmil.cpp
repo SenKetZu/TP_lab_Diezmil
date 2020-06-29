@@ -408,6 +408,10 @@ void interfaz(int jugador, int ronda, int lanz, int puntaje, int puntParcial, st
 
 // -----------------------Marco de puntuaciones ----------------------------------------------------------------------------------------------------
 
+
+
+
+
 //muestra las puntuaciones en la ronda actual
 void mostrarMarcoPuntuaciones(int ronda, int jugadorActual, string vectorJugadores[2], int vectorPuntaje[2], int cantJugadores) {
     cls();
@@ -516,6 +520,7 @@ void pantallaEmpate(int ronda) {
     Tiempo();
 }
 
+//la ultima pantalla que se muestra en el programa.
 void pantallaFinal() {
     cls();
     locate(10, 10); cout << "\t\t" << "El juego termino";
@@ -607,7 +612,7 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
                         interfaz(jug, rondas, lanzamiento, vectorPuntaje[jug], puntajeParcial, vectorJugadores);
                         
 
-                        locate(1, 13); cout << "Te pasaste "<< (puntajeParcial + puntajeTirada + vectorPuntaje[jug]) - 10000<<" puntos                                                     ";
+                        locate(1, 13); cout << "Te pasaste "<< (puntajeParcial + puntajeTirada + vectorPuntaje[jug]) - 10000 <<" puntos                                                     ";
                         Tiempo();      
                         puntajeParcial = 0;
 
@@ -657,7 +662,7 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
     }
     
     //si nadie llego a 10000 al final del juego
-    if (!ganoAlguien&&cantJugadores==2) {
+    if (!ganoAlguien&&cantJugadores==1) {
         if(vectorPuntaje[0] == vectorPuntaje[1]) {
             pantallaEmpate(10);
         }
@@ -677,6 +682,8 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
 //--------------------------------------------------------------------
 //----------------------------MAIN------------------------------------
 //--------------------------------------------------------------------
+
+
 int main() {
     
     //-------VECTORES INT
