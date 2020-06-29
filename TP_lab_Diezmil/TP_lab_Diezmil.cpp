@@ -11,14 +11,15 @@ using namespace std;
 using namespace rlutil;
 
 //--------------------funcionales----------------------------
+
+//cuenta cuantas veces aparece el numero indicado en la tirada
 int cantNumeros(int elNumeroAcontar,int vectorTirada[6]) {
-
+    //esta variable va a contener la cantidad de veces que aparece el numero que queremos
     int cant = 0;
-
+    
+    //este for recorre la tirada buscando el numero que queremos
     for (int j = 0; j <=5; j++) {
-
         if (vectorTirada[j] == elNumeroAcontar) {
-
             cant++;
         }
     }
@@ -30,6 +31,11 @@ int cantNumeros(int elNumeroAcontar,int vectorTirada[6]) {
 // literalmente, dibuja una linea.
 void linea() {
     cout << "------------------------------------------------------------------" << endl;
+}
+
+//desde aca podemos controlar el tiempo entre pantallas
+void Tiempo() {
+    msleep(2000);
 }
 
 //---------------------------------------------------------------------------------------
@@ -455,8 +461,15 @@ void mostrarMarcoPuntuaciones(int ronda, int jugadorActual, string vectorJugador
 //muestra quien gano y en que ronda.
 bool pantallaGanadora(int ronda, int jugador, string vectorJugadores[2], int vectorPuntaje[2]) {
     cls();
-    locate(10, 10); cout << vectorJugadores[jugador]<<"   Gano en la ronda "<<ronda<<"con: "<<vectorPuntaje[jugador]<<" Puntos";
+    if (vectorPuntaje[jugador] == 10000) {
+        locate(10, 10); cout << "\t   " << vectorJugadores[jugador] << " Gano en la ronda " << ronda ;
 
+    }
+    else {
+        locate(10, 10); cout << "  " << vectorJugadores[jugador] << " Gano en la ronda " << ronda << " con: " << vectorPuntaje[jugador] << " Puntos";
+
+    }
+    
     //horizontal
     for (int i = 1; i < 50; i++) {
         locate(i + 8, 5); cout << (char)196;
@@ -477,7 +490,7 @@ bool pantallaGanadora(int ronda, int jugador, string vectorJugadores[2], int vec
     return true;
     
     
-    msleep(2000);
+    Tiempo();
 }
 
 //muestra un cuadro de empate y en que ronda termino.
@@ -500,7 +513,29 @@ void pantallaEmpate(int ronda) {
     locate(9, 5); cout << (char)218;
     locate(58, 5); cout << (char)191;
     locate(58, 14); cout << (char)217;
-    msleep(2000);
+    Tiempo();
+}
+
+void pantallaFinal() {
+    cls();
+    locate(10, 10); cout << "\t\t" << "El juego termino";
+
+    //horizontal
+    for (int i = 1; i < 50; i++) {
+        locate(i + 8, 5); cout << (char)196;
+        locate(i + 8, 14); cout << (char)196;
+    }
+    //vertical
+    for (int i = 1; i < 10; i++) {
+        locate(9, i + 4); cout << (char)179;
+        locate(58, i + 4); cout << (char)179;
+    }
+    //esquinas
+    locate(9, 14); cout << (char)192;
+    locate(9, 5); cout << (char)218;
+    locate(58, 5); cout << (char)191;
+    locate(58, 14); cout << (char)217;
+    Tiempo();
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -546,11 +581,12 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
                     
                     //si llegas a 10000 y jugas solo, termina la partida
                     if (cantJugadores == 0 && puntajeParcial + puntajeTirada + vectorPuntaje[jug] == 10000) {
-
+                        puntajeParcial += puntajeTirada;
+                        vectorPuntaje[jug] += puntajeParcial;
                         ganoAlguien= pantallaGanadora(rondas, jug, vectorJugadores, vectorPuntaje);
                         jug = 2;
                         rondas = 11;
-                        msleep(2000);
+                        Tiempo();
                         break;
                     }
                     
@@ -560,7 +596,7 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
                         ganoAlguien = pantallaGanadora(rondas, jug, vectorJugadores, vectorPuntaje);
                         jug = 2;
                         rondas = 11;
-                        msleep(2000);
+                        Tiempo();
                         break;
                     }                   
                     
@@ -572,7 +608,7 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
                         
 
                         locate(1, 13); cout << "Te pasaste "<< (puntajeParcial + puntajeTirada + vectorPuntaje[jug]) - 10000<<" puntos                                                     ";
-                        msleep(2000);      
+                        Tiempo();      
                         puntajeParcial = 0;
 
                     }
@@ -582,7 +618,7 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
                         puntajeParcial = 0;
                         interfaz(jug, rondas, lanzamiento, vectorPuntaje[jug], puntajeParcial, vectorJugadores);
                         lanzamiento = 0;
-                        msleep(2000);                       
+                        Tiempo();                       
                     }                                                           
                 }
                 
@@ -592,7 +628,12 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
                 lanzamiento++;
             } 
             //final de cada turno
-            mostrarMarcoPuntuaciones(rondas,jug, vectorJugadores, vectorPuntaje, cantJugadores);
+            if (!ganoAlguien) {
+                mostrarMarcoPuntuaciones(rondas, jug, vectorJugadores, vectorPuntaje, cantJugadores);
+            }
+            
+            
+           
         }
 
         //si los dos terminan la ronda en 10000
@@ -616,7 +657,7 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
     }
     
     //si nadie llego a 10000 al final del juego
-    if (!ganoAlguien) {
+    if (!ganoAlguien&&cantJugadores==2) {
         if(vectorPuntaje[0] == vectorPuntaje[1]) {
             pantallaEmpate(10);
         }
@@ -626,6 +667,9 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
         else {
             pantallaGanadora(10, 1, vectorJugadores, vectorPuntaje);
         }
+    }
+    else {
+        pantallaFinal();
     }
 
 }
