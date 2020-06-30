@@ -636,10 +636,10 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
             if (!ganoAlguien) {
                 mostrarMarcoPuntuaciones(rondas, jug, vectorJugadores, vectorPuntaje, cantJugadores);
             }
-            
-            
            
         }
+
+
 
         //si los dos terminan la ronda en 10000
         if (vectorPuntaje[0] == 10000&& vectorPuntaje[1] == 10000) {
