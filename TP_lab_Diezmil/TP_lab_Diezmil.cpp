@@ -4,7 +4,7 @@
 #include <iostream>
 #include <time.h>
 #include "rlutil.h"
-//TODO: guardar el jugador que fue el ams grande en el tercer lugar del vector, asi solo cuando la ronda nueva es menor que la anterior pisas ese valor, ademas de usar ese valor para mostrar la wea, tambien ene l vector de puntos guardar la ronda ams baja hasta el momento.
+
 
 
 using namespace std;
@@ -43,13 +43,14 @@ void Tiempo() {
 //---------------------------------------------------------------------------------------
 
 
-int JuegoDe1(int vectorTirada[6]) {
-    //pregunta si hay uno o dos 1 en la tirada, y te da el puntaje.
+int JuegoDe1 (int vectorTirada[6]) {
+    
     if (cantNumeros(1, vectorTirada) == 1 || cantNumeros(1, vectorTirada) == 2) {
+        
         return cantNumeros(1, vectorTirada) * 100;
+
     }
     return 0;
-
 }
 
 int JuegoDe5(int vectorTirada[6]) {
@@ -67,13 +68,17 @@ int trioDe1(int vectorTirada[6]) {
 }
 
 int TrioCualquierNumero(int vectorTirada[6]) {
-    for (int i = 6; i > 1; i--) {
-        
-        if (cantNumeros(i, vectorTirada) == 3) {
-            return i * 100;
-        }
+    
+    for (int i = 6; i >= 1; i--) {
+
+        if (cantNumeros(i, vectorTirada) == 3){
+            
+            return cantNumeros(i, vectorTirada) * 100;
+
+		}      
     }
     return 0;
+
 }
 
 int cuatroCincoJuegos(int vectorTirada[6]) {
@@ -131,6 +136,35 @@ int sexteto(int vectorTirada[6]) {
     return 0;
 }
 
+int JuegoNuevo (int vectorTirada[6]){
+    //1-6-1-6-1-6/////666111/
+    int contador = 0;
+    int contador6 = 0;
+
+    if (cantNumeros(1, vectorTirada) == 3 && cantNumeros(6, vectorTirada) == 3){
+
+        for (int i = 0; i < 5; i += 2) {
+
+            if (vectorTirada[i] == 1) {
+
+                contador++;
+            }
+            
+            if (vectorTirada[i] == 6) {
+                contador6++;
+			}
+        }
+        if (contador == 3 || contador6 == 3){
+            return 1200;
+        } 
+       
+            
+    }
+    
+	
+  
+    return 0;
+}
 
 //---------------------------------------------------------------------------------------
 //-------------------FUNCIONES SOBRE LA TIRADA-------------------------------------------
@@ -139,10 +173,10 @@ int sexteto(int vectorTirada[6]) {
 
 //devuelve cual fue la tirada ej: escalera, juego extendido, 3 pares y el puntaje.
 int analizarTirada(int vectorTirada[6]){//100-50-0-0-0-....
-    int posTirada = 0, puntajeTirada=0, valoresTiradas[9] = { JuegoDe1(vectorTirada), JuegoDe5(vectorTirada), trioDe1(vectorTirada), TrioCualquierNumero(vectorTirada), cuatroCincoUnos(vectorTirada), cuatroCincoJuegos(vectorTirada), tresPares(vectorTirada), escaleraCompleta(vectorTirada),sexteto(vectorTirada) };
+    int posTirada = 0, puntajeTirada=0, valoresTiradas[10] = { JuegoDe1(vectorTirada), JuegoDe5(vectorTirada), trioDe1(vectorTirada), TrioCualquierNumero(vectorTirada), cuatroCincoUnos(vectorTirada), cuatroCincoJuegos(vectorTirada), tresPares(vectorTirada), escaleraCompleta(vectorTirada),sexteto(vectorTirada), JuegoNuevo(vectorTirada) };
 
     
-    for (int i = 0; i < 9; i++) {
+    for (int i = 0; i < 10; i++) {
         if (valoresTiradas[i] > puntajeTirada) {
             puntajeTirada = valoresTiradas[i];
             posTirada=i+1;
@@ -163,6 +197,7 @@ int analizarTirada(int vectorTirada[6]){//100-50-0-0-0-....
     case 7: {cout << "Juego de tres pares! +" << puntajeTirada << " Puntos";  break; }
     case 8: {cout << "Escalera Completa! +" << puntajeTirada << " Puntos";  break; }
     case 9: {cout << "10.000 TU GANAS";  break; }
+    case 10: {cout << "JUEGO NUEVO" << puntajeTirada << "Puntos"; break; }
 
 
     default:
@@ -369,27 +404,30 @@ int opcionesJuego(string vectorJugadores[3], int rondaGanadora, int vectorPuntaj
                 vectorJugadores[2] = vectorJugadores[0];
 
 
-			}else{
+			}else if(vectorPuntaje[0] < vectorPuntaje[1]){
                 vectorJugadores[2] = vectorJugadores[1];
 
+            }
+            else {
+                vectorJugadores[2] = "Empate";
             }
 		}
 	}
 
-    cls();
+    
     do {
+        cls();
         
-        
-        if (vectorPuntaje[2] != 0) {
-
-            cout << "puntaje maximo anterior: " << vectorJugadores[2] << " en la ronda: " << vectorPuntaje[2] << endl;
+        if (vectorPuntaje[2] != 11) {
+            linea();
+            cout << "Puntaje maximo anterior: " << vectorJugadores[2] << " en la ronda: " << vectorPuntaje[2] << endl;
         }
         
         linea();
         cout << "seleccione modo de juego:"<<endl ;
         linea();
-        cout << "1- modo un jugador.\n";
-        cout << "2- modo dos jugadores.\n";
+        cout << "1- Modo un jugador.\n";
+        cout << "2- Modo dos jugadores.\n";
         // getch te lee lo que apretas en el teclado
         corte = getch();
         linea();
@@ -599,7 +637,7 @@ int Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[3], string v
                 hacerUnaTirada(vectorTirada);
                 mostrarTiradaDados(7,vectorTirada);
 
-                puntajeTirada = analizarTirada(vectorTirada);
+                puntajeTirada = 100;//analizarTirada(vectorTirada);
                 
                 //si la tirada sale normal
                 if (puntajeTirada != 0 && puntajeParcial+puntajeTirada+vectorPuntaje[jug]<10000) {
@@ -627,9 +665,20 @@ int Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[3], string v
                         Tiempo();
                         break;
                     }
+                    //si llegas a 10000 jugando de a 2
+                    else if (puntajeParcial + puntajeTirada + vectorPuntaje[jug] == 10000) {
+                        puntajeParcial += puntajeTirada;
+                        vectorPuntaje[jug] += puntajeParcial;
+                        ganoAlguien = pantallaGanadora(rondas, jug, vectorJugadores, vectorPuntaje);
+                        ronda_ganadora = rondas;
+
+
+                        Tiempo();
+                        break;
+                    }
                     
                     //si te sale un sexteto
-                    if (puntajeTirada==999999) {
+                    else if (puntajeTirada==999999) {
                         vectorPuntaje[jug] = 10000;
                         ganoAlguien = pantallaGanadora(rondas, jug, vectorJugadores, vectorPuntaje);
 
@@ -731,7 +780,7 @@ int main() {
     //-------VECTORES INT
     int vectorTirada[6];
     //el tercer puntaje, es en realidad la ronda en la que se gano antes.
-    int vectorPuntaje[3] = { 0,0,0 };
+    int vectorPuntaje[3] = { 0,0,11 };
 
     //-------VECTORES STRING
     string vectorJugadores[3] = { "Jugador1","Jugador2","jugadorMaximo" };
@@ -744,7 +793,7 @@ int main() {
         cls();
 
         
-        rond=Juego(opcionesJuego(vectorJugadores, rond, vectorPuntaje), vectorTirada, vectorPuntaje, vectorJugadores);
+        rond=Juego(opcionesJuego(vectorJugadores, rond, vectorPuntaje),    vectorTirada, vectorPuntaje, vectorJugadores);
 
 
         locate(1, 16); cout << "seguir jugando?(Y/N)";
