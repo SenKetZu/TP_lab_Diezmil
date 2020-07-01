@@ -4,7 +4,7 @@
 #include <iostream>
 #include <time.h>
 #include "rlutil.h"
-
+//TODO: guardar el jugador que fue el ams grande en el tercer lugar del vector, asi solo cuando la ronda nueva es menor que la anterior pisas ese valor, ademas de usar ese valor para mostrar la wea, tambien ene l vector de puntos guardar la ronda ams baja hasta el momento.
 
 
 using namespace std;
@@ -299,7 +299,7 @@ void mostrarTiradaDados(int y, int vectorTirada[6]) {
 //----------------------------------INTERFACES ------------------------------------------
 
 //te pregunta si queres seguir tirando dados para acumular puntos
-bool seguirTirando(int vectorPuntaje[2], int jug, int puntajeParcial) {
+bool seguirTirando(int vectorPuntaje[3], int jug, int puntajeParcial) {
     locate(1, 16); cout << "seguir tirando?(Y/N)";
 
     bool control = true;
@@ -351,13 +351,42 @@ void pantallaInicio() {
 }
 
 //aca se decide la cantidad de jugadores.
-int opcionesJuego(string vectorJugadores[2]) {
+int opcionesJuego(string vectorJugadores[3], int rondaGanadora, int vectorPuntaje[3]) {
+    
     int corte = 0;
 
+
+    //vectorPuntaje[2] se guarda la ronda en la que se gano mas rapido
+    //rondaGanadora esta el valor de la ronda de la ultima ves que se gano
+    if (rondaGanadora != 0) {
+
+        if (rondaGanadora < vectorPuntaje[2]){
+
+            vectorPuntaje[2] = rondaGanadora; 
+
+            if (vectorPuntaje[0] > vectorPuntaje[1]) {
+
+                vectorJugadores[2] = vectorJugadores[0];
+
+
+			}else{
+                vectorJugadores[2] = vectorJugadores[1];
+
+            }
+		}
+	}
+
+    cls();
     do {
-        cls();
+        
+        
+        if (vectorPuntaje[2] != 0) {
+
+            cout << "puntaje maximo anterior: " << vectorJugadores[2] << " en la ronda: " << vectorPuntaje[2] << endl;
+        }
+        
         linea();
-        cout << "seleccione modo de juego:" << endl;
+        cout << "seleccione modo de juego:"<<endl ;
         linea();
         cout << "1- modo un jugador.\n";
         cout << "2- modo dos jugadores.\n";
@@ -413,7 +442,7 @@ void interfaz(int jugador, int ronda, int lanz, int puntaje, int puntParcial, st
 
 
 //muestra las puntuaciones en la ronda actual
-void mostrarMarcoPuntuaciones(int ronda, int jugadorActual, string vectorJugadores[2], int vectorPuntaje[2], int cantJugadores) {
+void mostrarMarcoPuntuaciones(int ronda, int jugadorActual, string vectorJugadores[2], int vectorPuntaje[3], int cantJugadores) {
     cls();
     if (cantJugadores==1) {
         //determina el proximo jugador
@@ -463,7 +492,7 @@ void mostrarMarcoPuntuaciones(int ronda, int jugadorActual, string vectorJugador
 }
 
 //muestra quien gano y en que ronda.
-bool pantallaGanadora(int ronda, int jugador, string vectorJugadores[2], int vectorPuntaje[2]) {
+bool pantallaGanadora(int ronda, int jugador, string vectorJugadores[2], int vectorPuntaje[3]) {
     cls();
     if (vectorPuntaje[jugador] == 10000) {
         locate(10, 10); cout << "\t   " << vectorJugadores[jugador] << " Gano en la ronda " << ronda ;
@@ -550,11 +579,14 @@ void pantallaFinal() {
 //--------------------------juego principal---------------------------
 //--------------------------------------------------------------------
 
-void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string vectorJugadores[2]) {
-    
+int Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[3], string vectorJugadores[3]) {
+    vectorPuntaje[0] = 0;
+    vectorPuntaje[1] = 0;
+
+    int ronda_ganadora=0;
     bool ganoAlguien = false, seguirHaciendoTiradas;
 
-    for (int rondas = 1; rondas <= 10; rondas++) {
+    for (int rondas = 1; rondas <= 10&&!ganoAlguien; rondas++) {
                                                                                                                                                                                                                                                                                                                                                                                                                                                             //https://cutt.ly/eu6Ape5               
         for (int jug = 0; jug <= cantJugadores; jug++) {
             
@@ -589,18 +621,18 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
                         puntajeParcial += puntajeTirada;
                         vectorPuntaje[jug] += puntajeParcial;
                         ganoAlguien= pantallaGanadora(rondas, jug, vectorJugadores, vectorPuntaje);
-                        jug = 2;
-                        rondas = 11;
+                        ronda_ganadora = rondas;
+
+
                         Tiempo();
                         break;
                     }
                     
                     //si te sale un sexteto
                     if (puntajeTirada==999999) {
-                              
+                        vectorPuntaje[jug] = 10000;
                         ganoAlguien = pantallaGanadora(rondas, jug, vectorJugadores, vectorPuntaje);
-                        jug = 2;
-                        rondas = 11;
+
                         Tiempo();
                         break;
                     }                   
@@ -640,24 +672,29 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
         }
 
 
+        if (cantJugadores == 1) {
+            //si los dos terminan la ronda en 10000
+            if (vectorPuntaje[0] == 10000 && vectorPuntaje[1] == 10000) {
+                pantallaEmpate(rondas);
+                ronda_ganadora = rondas;
+                break;
 
-        //si los dos terminan la ronda en 10000
-        if (vectorPuntaje[0] == 10000&& vectorPuntaje[1] == 10000) {
-            pantallaEmpate(rondas);
-            break;
-        }
-        
-        //si el jugador 1 termina la ronda en 10000
-        else if (vectorPuntaje[0]==10000) {
-            ganoAlguien = pantallaGanadora(rondas,0,vectorJugadores, vectorPuntaje);
-            break;
+            }
 
-        }
-        
-        //si el jugador 2 termina la ronda en 10000
-        else if (vectorPuntaje[1] == 10000) {
-            ganoAlguien = pantallaGanadora(rondas, 1, vectorJugadores, vectorPuntaje);
-            break;
+            //si el jugador 1 termina la ronda en 10000
+            else if (vectorPuntaje[0] == 10000) {
+                ganoAlguien = pantallaGanadora(rondas, 0, vectorJugadores, vectorPuntaje);
+                ronda_ganadora = rondas;
+                break;
+
+            }
+
+            //si el jugador 2 termina la ronda en 10000
+            else if (vectorPuntaje[1] == 10000) {
+                ganoAlguien = pantallaGanadora(rondas, 1, vectorJugadores, vectorPuntaje);
+                ronda_ganadora = rondas;
+                break;
+            }
         }
     }
     
@@ -675,8 +712,12 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
     }
     else {
         pantallaFinal();
-    }
 
+    }
+    if (!ganoAlguien) {
+        return 0;
+    }
+    return ronda_ganadora;
 }
 
 //--------------------------------------------------------------------
@@ -685,23 +726,67 @@ void Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[2], string 
 
 
 int main() {
-    
+    bool otrojuego = true;
+    int rond = 0;
     //-------VECTORES INT
-    int vectorTirada[6], vectorPuntaje[2] = { 0,0 };
+    int vectorTirada[6];
+    //el tercer puntaje, es en realidad la ronda en la que se gano antes.
+    int vectorPuntaje[3] = { 0,0,0 };
 
     //-------VECTORES STRING
-    string vectorJugadores[2] = { "Jugador1","Jugador2" };    
+    string vectorJugadores[3] = { "Jugador1","Jugador2","jugadorMaximo" };
+   
     
-    
-    
-    
-    pantallaInicio();
-    anykey();
-    cls();
+    while (otrojuego) {
+        
+        pantallaInicio();
+        anykey();
+        cls();
 
-    Juego(opcionesJuego(vectorJugadores), vectorTirada, vectorPuntaje, vectorJugadores);    
+        
+        rond=Juego(opcionesJuego(vectorJugadores, rond, vectorPuntaje), vectorTirada, vectorPuntaje, vectorJugadores);
+
+
+        locate(1, 16); cout << "seguir jugando?(Y/N)";
+
+        bool control = true;
+
+        while (control) {
+            msleep(100);
+
+            //vacia el getch
+            while (kbhit()) {
+                getch();
+            }
+            //----------------
+
+
+            int tecla = getch();
+
+            //si presiona n/N
+            if (tecla == 110 || tecla == 78) {
+
+                otrojuego = false;
+                control = false;
+
+
+
+            }
+            //si presiona y/Y
+            else if (tecla == 89 || tecla == 121) {
+                
+                control = false;
+
+            }
+            //si presiona cualqueir otra cosa
+            else {
+                cout << endl << "Ingrese una opcion valida";
+            }
+
+        }
+    }
     
     cout << endl;
     system("pause");
-	return 0;
+    return 0;
 }
