@@ -136,35 +136,6 @@ int sexteto(int vectorTirada[6]) {
     return 0;
 }
 
-int JuegoNuevo(int vectorTirada[6]) {
-    //1-6-1-6-1-6/////666111/
-    int contador = 0;
-    int contador6 = 0;
-
-    if (cantNumeros(1, vectorTirada) == 3 && cantNumeros(6, vectorTirada) == 3) {
-
-        for (int i = 0; i < 5; i += 2) {
-
-            if (vectorTirada[i] == 1) {
-
-                contador++;
-            }
-
-            if (vectorTirada[i] == 6) {
-                contador6++;
-            }
-        }
-        if (contador == 3 || contador6 == 3) {
-            return 1200;
-        }
-
-
-    }
-
-
-
-    return 0;
-}
 
 //---------------------------------------------------------------------------------------
 //-------------------FUNCIONES SOBRE LA TIRADA-------------------------------------------
@@ -173,10 +144,10 @@ int JuegoNuevo(int vectorTirada[6]) {
 
 //devuelve cual fue la tirada ej: escalera, juego extendido, 3 pares y el puntaje.
 int analizarTirada(int vectorTirada[6]) {//100-50-0-0-0-....
-    int posTirada = 0, puntajeTirada = 0, valoresTiradas[10] = { JuegoDe1(vectorTirada), JuegoDe5(vectorTirada), trioDe1(vectorTirada), TrioCualquierNumero(vectorTirada), cuatroCincoUnos(vectorTirada), cuatroCincoJuegos(vectorTirada), tresPares(vectorTirada), escaleraCompleta(vectorTirada),sexteto(vectorTirada), JuegoNuevo(vectorTirada) };
+    int posTirada = 0, puntajeTirada = 0, valoresTiradas[9] = { JuegoDe1(vectorTirada), JuegoDe5(vectorTirada), trioDe1(vectorTirada), TrioCualquierNumero(vectorTirada), cuatroCincoUnos(vectorTirada), cuatroCincoJuegos(vectorTirada), tresPares(vectorTirada), escaleraCompleta(vectorTirada),sexteto(vectorTirada)};
 
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 9; i++) {
         if (valoresTiradas[i] > puntajeTirada) {
             puntajeTirada = valoresTiradas[i];
             posTirada = i + 1;
@@ -197,7 +168,7 @@ int analizarTirada(int vectorTirada[6]) {//100-50-0-0-0-....
     case 7: {cout << "Juego de tres pares! +" << puntajeTirada << " Puntos";  break; }
     case 8: {cout << "Escalera Completa! +" << puntajeTirada << " Puntos";  break; }
     case 9: {cout << "10.000 TU GANAS";  break; }
-    case 10: {cout << "JUEGO NUEVO" << puntajeTirada << "Puntos"; break; }
+    
 
 
     default:
