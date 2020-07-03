@@ -618,7 +618,7 @@ void pantallaFinal() {
 //--------------------------------------------------------------------
 
 int Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[3], string vectorJugadores[3]) {
-    vectorPuntaje[0] = 0;
+    vectorPuntaje[0] = 9900;
     vectorPuntaje[1] = 0;
 
     int ronda_ganadora=0;
