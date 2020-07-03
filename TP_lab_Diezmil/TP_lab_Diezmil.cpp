@@ -618,7 +618,7 @@ void pantallaFinal() {
 //--------------------------------------------------------------------
 
 int Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[3], string vectorJugadores[3]) {
-    vectorPuntaje[0] = 9900;
+    vectorPuntaje[0] = 0;
     vectorPuntaje[1] = 0;
 
     int ronda_ganadora=0;
@@ -637,7 +637,7 @@ int Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[3], string v
                 hacerUnaTirada(vectorTirada);
                 mostrarTiradaDados(7,vectorTirada);
 
-                puntajeTirada = 100;//analizarTirada(vectorTirada);
+                puntajeTirada = analizarTirada(vectorTirada);
                 
                 //si la tirada sale normal
                 if (puntajeTirada != 0 && puntajeParcial+puntajeTirada+vectorPuntaje[jug]<10000) {
@@ -724,6 +724,7 @@ int Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[3], string v
         if (cantJugadores == 1) {
             //si los dos terminan la ronda en 10000
             if (vectorPuntaje[0] == 10000 && vectorPuntaje[1] == 10000) {
+                Tiempo();
                 pantallaEmpate(rondas);
                 ronda_ganadora = rondas;
                 break;
@@ -732,6 +733,7 @@ int Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[3], string v
 
             //si el jugador 1 termina la ronda en 10000
             else if (vectorPuntaje[0] == 10000) {
+                Tiempo();
                 ganoAlguien = pantallaGanadora(rondas, 0, vectorJugadores, vectorPuntaje);
                 ronda_ganadora = rondas;
                 break;
@@ -740,6 +742,7 @@ int Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[3], string v
 
             //si el jugador 2 termina la ronda en 10000
             else if (vectorPuntaje[1] == 10000) {
+                Tiempo();
                 ganoAlguien = pantallaGanadora(rondas, 1, vectorJugadores, vectorPuntaje);
                 ronda_ganadora = rondas;
                 break;
@@ -750,12 +753,15 @@ int Juego(int cantJugadores, int vectorTirada[6], int vectorPuntaje[3], string v
     //si nadie llego a 10000 al final del juego
     if (!ganoAlguien&&cantJugadores==1) {
         if(vectorPuntaje[0] == vectorPuntaje[1]) {
+            Tiempo();
             pantallaEmpate(10);
         }
         else if (vectorPuntaje[0] > vectorPuntaje[1]) {
+            Tiempo();
             pantallaGanadora(10,0, vectorJugadores, vectorPuntaje);
         }
         else {
+            Tiempo();
             pantallaGanadora(10, 1, vectorJugadores, vectorPuntaje);
         }
     }
